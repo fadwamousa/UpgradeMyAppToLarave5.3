@@ -21,7 +21,7 @@
       <tr>
         <td>{{ $post->id }}</td>
         <td><img height="64" src="{{ $post->photo ? $post->photo->file : 'No Photo Found' }}"/></td>
-        <td>{{ $post->title }}</td>
+        <td><a href="{{ url('admin/posts/'.$post->id.'/edit') }}">{{ $post->title }}</a></td>
         <td>{{ $post->body }}</td>
         <td>{{ $post->user->name }}</td>
         <td>{{ $post->category->name }}</td>

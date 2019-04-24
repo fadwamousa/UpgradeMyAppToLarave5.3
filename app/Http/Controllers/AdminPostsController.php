@@ -77,7 +77,9 @@ class AdminPostsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        $categories = Category::pluck('name','id')->all();
+        return view('admin.posts.edit',compact('post','categories'));
     }
 
     /**
@@ -89,7 +91,21 @@ class AdminPostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      //$post     = Post::find($id);
+      $input    = $request->all();
+      $user     = Auth::user();
+
+      if($file  = $request->file('photo_id')){
+
+        $fileName = time().$file->getClientOriginalName();
+        $file->move('images',$fileName);
+        $photo = Photo::create(['file'=>$fileName]);
+        $input['photo_id'] = $photo->id;
+
+      }
+     $user->posts()->where('id',$id)->first()->update($input);
+     //$user->posts()->update($input);
+     return redirect('admin/posts')->with('messages','Post updated');
     }
 
     /**
@@ -100,6 +116,9 @@ class AdminPostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::user();
+        $user->posts()->whereId($id)->first()->delete();
+        return redirect('/admin/posts')->with('messages','Post Removed');
+
     }
 }
