@@ -116,8 +116,14 @@ class AdminPostsController extends Controller
      */
     public function destroy($id)
     {
-        $user = Auth::user();
+        /*$user = Auth::user();
+        unlink(public_path().$user->photo->file);
         $user->posts()->whereId($id)->first()->delete();
+        return redirect('/admin/posts')->with('messages','Post Removed');*/
+
+        $post = Post::find($id);
+        unlink(public_path().$post->photo->file);
+        $post->delete();
         return redirect('/admin/posts')->with('messages','Post Removed');
 
     }
