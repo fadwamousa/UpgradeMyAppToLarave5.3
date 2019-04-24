@@ -170,11 +170,11 @@
                         <a href="#"><i class="fa fa-wrench fa-fw"></i>Media<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{ url('admin/media') }}">All Media</a>
+                                <a href="{{ url('admin/medias') }}">All Media</a>
                             </li>
 
                             <li>
-                                <a href="{{ url('admin/media/create') }}">Upload Media</a>
+                                <a href="{{ url('admin/medias/create') }}">Upload Media</a>
                             </li>
 
                         </ul>
