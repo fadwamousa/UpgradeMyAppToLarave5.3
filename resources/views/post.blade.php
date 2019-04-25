@@ -12,92 +12,25 @@
 </p>
 
 <hr>
+<div id="disqus_thread"></div>
+<script>
 
-<!-- Date/Time -->
-<p><span class="glyphicon glyphicon-time"></span>{{ $post->created_at->diffForHumans() }}</p>
-
-<hr>
-
-<!-- Preview Image -->
-
-<img class="img-responsive" src="{{ $post->photo ? $post->photo->file : 'http://placehold.it/900x300' }}" alt="">
-
-<hr>
-
-<!-- Post Content -->
-<p class="lead">{{ $post->body }}</p>
-
-<hr>
-
-<!-- Blog Comments -->
-@if(Auth::check())
-<!-- Comments Form -->
-<div class="well">
-    <h4>Leave a Comment:</h4>
-    {!!Form::open(['method'=>'POST','action'=>'PostsCommentsContoller@store'])!!}
-    <input type="hidden" name="post_id" value="{{ $post->id }}">
-    <div class="form-group">
-        <textarea name="body" class="form-control" rows="3"></textarea>
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-
-    {!!Form::close()!!}
-</div>
-
-@endif
-<hr>
-
-<!-- Posted Comments -->
-
-@if(count($comments) > 0)
-@foreach($comments as $comment)
-<!-- Comment -->
-<div class="media">
-    <a class="pull-left" href="#">
-
-        <img class="media-object" height="64" src="{{ $comment->photo ? $comment->photo : 'http://placehold.it/64x64' }}" alt="">
-    </a>
-    <div class="media-body">
-        <h4 class="media-heading">{{$comment->author}}
-            <small>{{ $comment->created_at->diffForHumans() }}</small>
-        </h4>
-        {{ $comment->body }}
-        <!-- Nested Comment -->
-        @if(count($comment->replies) > 0)
-        @foreach($comment->replies as $reply)
-        <div class="media">
-            <a class="pull-left" href="#">
-
-                <img class="media-object" height="64" src="{{ $reply->photo ? $reply->photo : 'http://placehold.it/64x64' }}" alt="">
-
-            </a>
-            <div class="media-body">
-                <h4 class="media-heading">{{$reply->author}}
-                    <small>{{ $reply->created_at->diffForHumans() }}</small>
-                </h4>
-              {{ $reply->body }}
-        </div>
-        @endforeach
-        @endif
-
-        <br>
-        <br>
-  {!!Form::open(['method'=>'POST','action'=>'CommentsRepliesController@createReply'])!!}
-  <input type="hidden" name="comment_id" value="{{ $comment->id }}">
-  <div class="form-group">
-      <textarea name="body" class="form-control" rows="3"></textarea>
-  </div>
-  <div class="form-group">
-      <button type="submit" class="btn btn-primary">Submit</button>
-  </div>
-  {!!Form::close()!!}
-
-        </div>
-        @endforeach
-        @endif
-        <!-- End Nested Comment -->
-    </div>
-  </div>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://EXAMPLE.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<script id="dsq-count-scr" src="//blogpanel-2.disqus.com/count.js" async></script>
 @endsection
