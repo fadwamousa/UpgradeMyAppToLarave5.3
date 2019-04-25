@@ -32,26 +32,11 @@ class AdminMediasController extends Controller
 
     }
 
-
-    public function show($id)
-    {
-        //
-    }
-
-
-    public function edit($id)
-    {
-        //
-    }
-
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     public function destroy($id)
     {
-        //
+       $photo = Photo::find($id);
+       unlink(public_path().$photo->file);
+       $photo->delete();
+       return redirect()->back();
     }
 }

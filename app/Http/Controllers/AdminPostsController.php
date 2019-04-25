@@ -7,6 +7,7 @@ use Auth;
 use App\Post;
 use App\Photo;
 use App\Category;
+use App\Comment;
 class AdminPostsController extends Controller
 {
     /**
@@ -125,6 +126,16 @@ class AdminPostsController extends Controller
         unlink(public_path().$post->photo->file);
         $post->delete();
         return redirect('/admin/posts')->with('messages','Post Removed');
+
+    }
+
+
+    public function post($id){
+
+      $post     = Post::findOrFail($id);
+      $comments = $post->comments()->whereIsActive(1)->get();
+
+      return view('post',compact('post','comments'));
 
     }
 }

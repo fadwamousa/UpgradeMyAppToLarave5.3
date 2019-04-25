@@ -11,6 +11,7 @@
         <th>body</th>
         <th>Author</th>
         <th>Category</th>
+        <th>post Link</th>
         <th>Created</th>
         <th>Updated</th>
       </tr>
@@ -25,6 +26,9 @@
         <td>{{ $post->body }}</td>
         <td>{{ $post->user->name }}</td>
         <td>{{ $post->category->name }}</td>
+        <td><a href="{{ url('post/'.$post->id) }}">Post</a></td>
+        <td><a href="{{ url('admin/comments/'.$post->id) }}">comment</a></td>
+        <!--Show comment for specific to post -->
         <td>{{ $post->created_at->diffForHumans() }}</td>
         <td>{{ $post->updated_at->diffForHumans() }}</td>
 
