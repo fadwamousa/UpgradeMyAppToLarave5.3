@@ -3,82 +3,54 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
+use App\Http\Requests;
 use App\CommentReply;
 use Auth;
+use App\Comment;
+
 class CommentsRepliesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+
+
+    public function show($id){
+
+      $comment = Comment::find($id);
+      $replies = $comment->replies;
+
+      return view('admin.comments.replies.show',compact('replies'));
+    }
+
+    public function createReply(Request $request)
     {
-        //
+      $user  = Auth::user();
+
+      $datas = [
+        'comment_id' => $request->comment_id,
+        'author'     => $user->name,
+        'email'      => $user->email,
+        'body'       => $request->body
+      ];
+      CommentReply::create($datas);
+      $request->session()->flash('Message','The Reply Comment has been submited');
+      return redirect()->back();
     }
 
-    public function store(Request $request)
-    {
 
-    }
-
-    public function createReply(Request $request){
-
-      $user    = Auth::user();
-      $data    = [
-        'comment_id' =>  $request->comment_id,
-        'body'       =>  $request->body,
-        'photo'      =>  $user->photo->file,
-        'email'      =>  $user->email,
-        'author'     =>  $user->name
-       ];
-      CommentReply::create($data);
-      return redirect()->back()->with('messages','Comment has been submited');
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        $reply = CommentReply::findOrFail($id);
+        $reply->is_active = $request->is_Active;
+        $reply->save();
+        return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+      $reply = CommentReply::findOrFail($id);
+      $reply->delete();
+      return redirect()->back();
     }
+
+
 }

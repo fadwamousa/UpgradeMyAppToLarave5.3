@@ -65,16 +65,23 @@
         </h4>
         {{ $comment->body }}
         <!-- Nested Comment -->
+        @if(count($comment->replies) > 0)
+        @foreach($comment->replies as $reply)
         <div class="media">
             <a class="pull-left" href="#">
-                <img class="media-object" src="http://placehold.it/64x64" alt="">
+
+                <img class="media-object" height="64" src="{{ $reply->photo ? $reply->photo : 'http://placehold.it/64x64' }}" alt="">
+
             </a>
             <div class="media-body">
-                <h4 class="media-heading">Nested Start Bootstrap
-                    <small>August 25, 2014 at 9:30 PM</small>
+                <h4 class="media-heading">{{$reply->author}}
+                    <small>{{ $reply->created_at->diffForHumans() }}</small>
                 </h4>
-              hello
+              {{ $reply->body }}
         </div>
+        @endforeach
+        @endif
+
         <br>
         <br>
   {!!Form::open(['method'=>'POST','action'=>'CommentsRepliesController@createReply'])!!}
@@ -87,14 +94,10 @@
   </div>
   {!!Form::close()!!}
 
-
         </div>
+        @endforeach
+        @endif
         <!-- End Nested Comment -->
-
-
     </div>
-
-</div>
-@endforeach
-@endif
+  </div>
 @endsection

@@ -13,7 +13,8 @@
         <th>email</th>
         <th>body</th>
         <th>status</th>
-        <th>ViewPost</th>
+        <th>View-Post</th>
+        <th>View-Reply</th>
         <th>Created</th>
         <th>Privialge</th>
         <th>Delete</th>
@@ -29,17 +30,18 @@
         <td>{{ $comment->body }}</td>
         <td>{{ $comment->is_active }}</td>
         <td><a href="{{ url('post/'.$comment->post->id) }}">view post</a></td>
+        <td><a href="{{ url('comment/replies/'.$comment->id) }}">link reply</a></td>
         <td>{{ $comment->created_at->diffForHumans() }}</td>
         <td>
           @if($comment->is_active == 1)
             {!!Form::model($comment,['method'=>'PATCH','action'=>['PostsCommentsContoller@update',$comment->id]])!!}
                   <input type="hidden" name="is_active" value="0">
-              {{ Form::submit('approve',['class'=>'btn btn-success']) }}
+              {{ Form::submit('un-Approve',['class'=>'btn btn-success']) }}
             {!!Form::close()!!}
           @else
             {!!Form::model($comment,['method'=>'PATCH','action'=>['PostsCommentsContoller@update',$comment->id]])!!}
                  <input type="hidden" name="is_active" value="1">
-              {{ Form::submit('Un-Approve',['class'=>'btn btn-primary']) }}
+              {{ Form::submit('Approve',['class'=>'btn btn-primary']) }}
             {!!Form::close()!!}
           @endif
 
