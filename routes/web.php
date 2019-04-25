@@ -28,3 +28,10 @@ Route::group(['middleware'=>'admin'],function(){
   Route::resource('comment/replies','CommentsRepliesController');
 
 });
+
+
+Route::group(['middleware'=>'auth'],function(){
+
+  Route::post('comment/reply','CommentsRepliesController@createReply');
+
+});
