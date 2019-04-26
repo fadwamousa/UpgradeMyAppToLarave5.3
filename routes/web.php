@@ -29,6 +29,8 @@ Route::group(['middleware'=>'admin'],function(){
 
 });
 
+Route::delete('delete/media','AdminMediasController@deleteMedia');
+
 
 Route::group(['middleware'=>'auth'],function(){
 
