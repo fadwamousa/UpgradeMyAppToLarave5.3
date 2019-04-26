@@ -10,11 +10,19 @@
 <p class="lead">
     by <a href="#">{{ $post->user->name }}</a>
 </p>
+<hr>
+
+<!-- Preview Image -->
+
+<img  height="50" class="img-responsive" src="{{ $post->photo ? $post->photo->file : 'http://placehold.it/900x300' }}" alt="">
+<hr>
+
+<!-- Post Content -->
+<p class="lead">{{ $post->body }}</p>
 
 <hr>
 <div id="disqus_thread"></div>
 <script>
-
 /**
 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
