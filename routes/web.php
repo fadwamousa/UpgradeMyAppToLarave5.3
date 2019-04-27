@@ -9,6 +9,7 @@ Route::get('/post/{post}','AdminPostsController@post');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
 Route::get('/logout', 'Auth\LoginController@logout');
 
 Route::group(['middleware'=>'admin'],function(){

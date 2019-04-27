@@ -29,7 +29,7 @@ class PostsCommentsContoller extends Controller
         $data    = [
           'post_id'    =>  $request->post_id,
           'body'       =>  $request->body,
-          'photo'      =>  $user->photo->file,
+          'photo'      =>  $user->photo ? $user->photo->file : null,
           'email'      =>  $user->email,
           'author'     =>  $user->name
          ];
